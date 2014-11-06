@@ -12,10 +12,11 @@ Let's assume that you are familar with Docker and building Docker images from [D
 
 1. Download the [rpm installer](http://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html).
 1. Unzip it and pack `oracle-xe-11.2.0-1.0.x86_64.rpm` in `tar.gz` archive named `oracle-xe-11.2.0-1.0.x86_64.rpm.tar.gz` so that it's contents look like:
-```
-% tar -tf oracle-xe-11.2.0-1.0.x86_64.rpm.tar.gz              
-oracle-xe-11.2.0-1.0.x86_64.rpm
-```
+
+        % tar -tf oracle-xe-11.2.0-1.0.x86_64.rpm.tar.gz
+        oracle-xe-11.2.0-1.0.x86_64.rpm
+
+1. ...or you can simply download prepared tar.gz [here](https://github.com/madhead/docker-oracle-xe/releases/download/v1.0.0/oracle-xe-11.2.0-1.0.x86_64.rpm.tar.gz).
 1. Place the tarball inside the `rpm` directory of this repo.
 1. Run `docker build -t "madhead/docker-oracle-xe" .` from the root directory of this repo.
 1. You should get your image ready in a few minutes (apart from downloading base `centos:centos7` image).
@@ -26,7 +27,7 @@ During the configuration of Oracle XE instance two files - `init.ora` and `initX
 
 Basically `docker run -p 8089:8080 -p 1521:1521 -d  madhead/docker-oracle-xe` will start new container and bind it's local ports `1521` and `8080` to host's `1521` and `8089` respectively. Read [Docker documentation](http://docs.docker.com/userguide/usingdocker/) for details.
 
-Oracle Web Management Console (apex) will be available at http://localhost:8089/apex. Use the following credentials to login:
+Oracle Web Management Console (apex) will be available at [http://localhost:8089/apex](http://localhost:8089/apex). Use the following credentials to login:
 
     workspace: INTERNAL
     user: ADMIN
