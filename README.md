@@ -27,6 +27,28 @@ During the configuration of Oracle XE instance two files - `init.ora` and `initX
 The only difference is that `memory_target` parameter is commented in them to prevent `ORA-00845: MEMORY_TARGET not supported on this system` error.
 The only piece of magic in this image :).
 
+### Building on boot2docker
+
+Thanks [@pmelopereira](https://github.com/pmelopereira) for instructions!
+
+The steps are same as for usual build, but you need to configure swap space in `boot2docker` prior the build:
+
+1. Log in into `boot2docker` VM: `boot2docker ssh`
+1. Create a file named `bootlocal.sh` in `/var/lib/boot2docker/` with the following content:
+
+        #!/bin/sh
+
+        SWAPFILE=/mnt/sda1/swapfile
+
+        dd if=/dev/zero of=$SWAPFILE bs=1024 count=2097152
+        mkswap $SWAPFILE && chmod 600 $SWAPFILE && swapon $SWAPFILE
+
+1. Make this file executable: `chmod u+x /var/lib/boot2docker/bootlocal.sh`
+
+After restarting `boot2docker`, it will have increased swap size.
+Just follow the steps above to build this image.
+
+
 ## How to use
 
 Basically `docker run -p 8089:8080 -p 1521:1521 -d  madhead/docker-oracle-xe` will start new container and bind it's local ports `1521` and `8080` to host's `1521` and `8089` respectively.
