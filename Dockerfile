@@ -3,11 +3,12 @@ FROM centos:centos7
 MAINTAINER Siarhei Krukau <siarhei.krukau@gmail.com>
 
 # Pre-requirements
-RUN yum install -y libaio bc; \
+RUN mkdir -p /run/lock/subsys; \
+    yum install -y libaio bc initscripts net-tools; \
     yum clean all
 
 # Install Oracle XE
-ADD rpm/oracle-xe-11.2.0-1.0.x86_64.rpm.tar.gz /tmp/
+ADD rpm/oracle-xe-11.2.0-1.0.x86_64.rpm /tmp/
 RUN yum localinstall -y /tmp/oracle-xe-11.2.0-1.0.x86_64.rpm; \
     rm -rf /tmp/oracle-xe-11.2.0-1.0.x86_64.rpm
 
