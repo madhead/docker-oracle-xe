@@ -3,8 +3,9 @@ FROM centos:centos7
 MAINTAINER Siarhei Krukau <siarhei.krukau@gmail.com>
 
 # Pre-requirements
-RUN mkdir -p /run/lock/subsys; \
-    yum install -y libaio bc initscripts net-tools; \
+RUN mkdir -p /run/lock/subsys
+
+RUN yum install -y libaio bc initscripts net-tools; \
     yum clean all
 
 # Install Oracle XE
