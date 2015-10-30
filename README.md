@@ -27,13 +27,13 @@ During the configuration of Oracle XE instance two files - `init.ora` and `initX
 The only difference is that `memory_target` parameter is commented in them to prevent `ORA-00845: MEMORY_TARGET not supported on this system` error.
 The only piece of magic in this image :).
 
-### Building on boot2docker
+### Building on boot2docker & Docker Machine
 
-Thanks [@pmelopereira](https://github.com/pmelopereira) for instructions!
+Thanks [@pmelopereira](https://github.com/pmelopereira) for the instructions!
 
-The steps are same as for usual build, but you need to configure swap space in `boot2docker` prior the build:
+The steps are same as for usual build, but you need to configure swap space in boot2docker / Docker Machine prior the build:
 
-1. Log in into `boot2docker` VM: `boot2docker ssh`
+1. Log into boot2docker / Docker Machine: `boot2docker ssh` or `docker-machine ssh default` (replace `default` if needed).
 1. Create a file named `bootlocal.sh` in `/var/lib/boot2docker/` with the following content:
 
         #!/bin/sh
@@ -45,9 +45,8 @@ The steps are same as for usual build, but you need to configure swap space in `
 
 1. Make this file executable: `chmod u+x /var/lib/boot2docker/bootlocal.sh`
 
-After restarting `boot2docker`, it will have increased swap size.
+After restarting boot2docker / Docker Machine, it will have increased swap size.
 Just follow the steps above to build this image.
-
 
 ## How to use
 
