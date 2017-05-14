@@ -26,27 +26,6 @@ During the configuration of Oracle XE instance two files - `init.ora` and `initX
 The only difference is that `memory_target` parameter is commented in them to prevent `ORA-00845: MEMORY_TARGET not supported on this system` error.
 The only piece of magic in this image :).
 
-### Building on boot2docker & Docker Machine
-
-Thanks [@pmelopereira](https://github.com/pmelopereira) for the instructions!
-
-The steps are same as for usual build, but you need to configure swap space in boot2docker / Docker Machine prior the build:
-
-1. Log into boot2docker / Docker Machine: `boot2docker ssh` or `docker-machine ssh default` (replace `default` if needed).
-1. Create a file named `bootlocal.sh` in `/var/lib/boot2docker/` with the following content:
-
-        #!/bin/sh
-
-        SWAPFILE=/mnt/sda1/swapfile
-
-        dd if=/dev/zero of=$SWAPFILE bs=1024 count=2097152
-        mkswap $SWAPFILE && chmod 600 $SWAPFILE && swapon $SWAPFILE
-
-1. Make this file executable: `chmod u+x /var/lib/boot2docker/bootlocal.sh`
-
-After restarting boot2docker / Docker Machine, it will have increased swap size.
-Just follow the steps above to build this image.
-
 ## How to use
 
 Basically `docker run -p 8089:8080 -p 1521:1521 -d  madhead/docker-oracle-xe` will start new container and bind it's local ports `1521` and `8080` to host's `1521` and `8089` respectively.
@@ -66,10 +45,3 @@ Connect to the database using the following details:
     sid: XE
     username: system
     password: oracle
-
-## Known issues
-
-To build and use this image your host machine need to have at least 2GB of swap.
-This is an Oracle XE limitation, described [here](http://docs.oracle.com/cd/E17781_01/install.112/e18802/toc.htm#XEINL106).
-It is not possible to use `swapon` command from inside the container to increase swap space due to security reasons.
-If you know how to bypass this, please share the knowledge with me.
