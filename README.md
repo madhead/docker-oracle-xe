@@ -13,12 +13,7 @@ Unlike many other images on the Net this one uses stock rpm installer provided b
 Let's assume that you are familar with Docker and building Docker images from [Dockerfiles](http://docs.docker.com/reference/builder/).
 
 1. Download the [rpm installer](http://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html).
-1. Unzip it and pack `oracle-xe-11.2.0-1.0.x86_64.rpm` in `tar.gz` archive named `oracle-xe-11.2.0-1.0.x86_64.rpm.tar.gz` so that it's contents look like:
-
-        % tar -tf oracle-xe-11.2.0-1.0.x86_64.rpm.tar.gz
-        oracle-xe-11.2.0-1.0.x86_64.rpm
-
-1. Place the tarball inside the `rpm` directory of this repo.
+1. Unzip it and place `oracle-xe-11.2.0-1.0.x86_64.rpm` inside the `tmp` directory of this repo.
 1. Run `docker build -t "madhead/docker-oracle-xe" .` from the root directory of this repo.
 1. You should get your image ready in a few minutes (apart from downloading base `centos:centos7` image).
 
